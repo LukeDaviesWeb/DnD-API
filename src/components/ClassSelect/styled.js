@@ -27,6 +27,10 @@ export const ClassInputWrapperStyled = styled.div`
         border: 2px solid black;
         padding: 10px 15px;
         font-size: 14px;
+
+        &:focus{
+            outline: none;
+        }
     }
 
     &:last-child{

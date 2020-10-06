@@ -17,6 +17,9 @@ export const ButtonStyled = styled.button`
         transform:translate3d(-2px, -4px, 0);
         box-shadow: 5px 5px 0px black;
     }
+    &:focus{
+        outline: none;
+    }
 `
 
 export const SpellListContainerStyled = styled(motion.div)`
