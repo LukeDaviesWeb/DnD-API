@@ -3,6 +3,7 @@ import * as constants from '../actions/actionTypes';
 const INITIAL_STATE = {
     loading: true,
     loadingSpells: false,
+    parentClass: '',
     classes: [],
     subclasses: [],
     subclassSpells: [],
@@ -35,8 +36,11 @@ export default (state = INITIAL_STATE, action) => {
         case constants.CLEAR_FLAVOUR:
             return { ...state, flavour: action.payload };
 
+        case constants.SET_PARENT_CLASS:
+            return { ...state, parentClass: action.payload };
+
         case constants.FETCH_SPELLS_INIT:
-            return { ...state, loadingSpells: action.payload, };
+            return { ...state, parentClass: '', loadingSpells: action.payload, };
 
         case constants.FETCH_SUBCLASS_SPELLS:
             return {

@@ -14,6 +14,8 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
     const classSpells = useSelector(state => state.classState.classSpells);
     const subclassSpells = useSelector(state => state.classState.subclassSpells);
     const loadingSpells = useSelector(state => state.classState.loadingSpells);
+    const parentClass = useSelector(state => state.classState.parentClass);
+
     const dispatch = useDispatch();
 
     const handleFetchSpells = () => {
@@ -51,7 +53,7 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
 
                         {classSpells.length ? (
                             <SpellListStyled>
-                                <h4>{currentClassType === 'class' ? `Class ${currentClass}` : 'Parent Class'} Spells</h4>
+                                <h4>{currentClassType === 'class' ? `${currentClass}` : `${parentClass}`} Spells (parent class)</h4>
                                 <ul>
                                     {
                                         typeof (classSpells) !== 'string' ? (

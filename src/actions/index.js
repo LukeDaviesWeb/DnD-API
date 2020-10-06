@@ -89,13 +89,29 @@ export const fetchSubClassSpells = (subclass) => async dispatch => {
 
     await dispatch(fetchSpellsInit())
     await dispatch(fetchClassSpells(parentClass));
-
+    await dispatch(setParentClass(parentClass))
     dispatch({
         type: constants.FETCH_SUBCLASS_SPELLS,
         payload: payload
     })
 
 }
+
+export const setParentClass = (parentClass) => async dispatch => {
+
+    dispatch({
+        type: constants.SET_PARENT_CLASS,
+        payload: parentClass
+    })
+}
+
+// export const clearParentClass = () => async dispatch => {
+
+//     dispatch({
+//         type: constants.CLEAR_PARENT_CLASS,
+//         payload: ''
+//     })
+// }
 
 export const clearSubClassSpells = () => async dispatch => {
     dispatch({
