@@ -63,6 +63,19 @@ export const SpellListStyled = styled.div`
         margin-bottom: 25px;
     }
 
+    ul{
+        display: flex;
+        flex-wrap: wrap;
+        list-style-type:none;
+        padding: 0;
+        li{
+            border: 1px solid;
+            padding: 10px;
+   
+            width: 100%;
+      
+        }
+    }
     
 `
 

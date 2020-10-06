@@ -7,7 +7,7 @@ import {
 } from '../../actions';
 
 import { ButtonStyled, SpellListStyled, SpellListContainerStyled } from './styled'
-import { AnimatePresence } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 
 
 export const ClassSpells = ({ currentClassType, currentClass }) => {
@@ -41,6 +41,30 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
         }
     }
 
+    const ulVariants = {
+        show: {
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2,
+                when: "afterChildren"
+            }
+        },
+        hide: {
+        },
+    }
+
+    const liVariants = {
+        show: {
+            y: 0,
+            opacity: 1,
+        },
+        hide: {
+            y: -25,
+            opacity: 0,
+        },
+    }
+
+
 
     return (
         <div>
@@ -49,38 +73,46 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
             </div>
             <AnimatePresence>
                 {loadingSpells ? <p>Loading...</p> : (
-                    <SpellListContainerStyled variants={variants} initial="hide" animate="show">
+                    <SpellListContainerStyled
+                        variants={variants}
+                        initial="hide"
+                        animate="show"
+                        transition={{ damping: 300 }}
+                    >
 
                         {classSpells.length ? (
                             <SpellListStyled>
                                 <h4>{currentClassType === 'class' ? `${currentClass} Spells` : `${parentClass} Spells (parent class)`} </h4>
-                                <ul>
+                                <motion.ul variants={ulVariants} initial="hide" animate={"show"}>
                                     {
                                         typeof (classSpells) !== 'string' ? (
+
                                             classSpells.map(spell => (
-                                                <li key={spell.name} >{spell.name}</li>
+                                                <motion.li key={spell.name} variants={liVariants}>{spell.name}</motion.li>
                                             ))
                                         ) : (
-                                                <li>{classSpells}</li>
+                                                <motion.li>{classSpells}</motion.li>
                                             )
                                     }
-                                </ul>
+                                </motion.ul>
                             </SpellListStyled>
                         ) : ''}
                         {currentClassType === 'subclass' && subclassSpells.length ? (
                             <SpellListStyled>
                                 <h4>{currentClass} Spells</h4>
-                                <ul>
+                                <motion.ul variants={ulVariants} initial="hide" animate={"show"}>
                                     {
                                         typeof (subclassSpells) !== 'string' ? (
                                             subclassSpells.map(spell => (
-                                                <li key={spell.spell.name}>{spell.spell.name}</li>
+                                                <motion.li key={spell.spell.name} variants={liVariants}>
+                                                    {spell.spell.name}
+                                                </motion.li>
                                             ))
                                         ) : (
-                                                <li>{subclassSpells}</li>
+                                                <motion.li>{subclassSpells}</motion.li>
                                             )
                                     }
-                                </ul>
+                                </motion.ul>
                             </SpellListStyled>
                         ) : ''}
                     </SpellListContainerStyled>
