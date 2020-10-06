@@ -53,7 +53,7 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
 
                         {classSpells.length ? (
                             <SpellListStyled>
-                                <h4>{currentClassType === 'class' ? `${currentClass}` : `${parentClass}`} Spells (parent class)</h4>
+                                <h4>{currentClassType === 'class' ? `${currentClass} Spells` : `${parentClass} Spells (parent class)`} </h4>
                                 <ul>
                                     {
                                         typeof (classSpells) !== 'string' ? (
