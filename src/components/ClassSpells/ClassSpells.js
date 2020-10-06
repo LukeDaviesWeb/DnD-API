@@ -79,11 +79,6 @@ export const ClassSpells = ({ currentClassType, currentClass, parentClass }) => 
         },
     }
 
-
-
-
-
-
     return (
         <div>
             <SpellCTAStyled>
@@ -152,7 +147,10 @@ export const ClassSpells = ({ currentClassType, currentClass, parentClass }) => 
                                     {
                                         typeof (subclassSpells) !== 'string' ? (
                                             subclassSpells.map((spell, index) => (
-                                                <motion.li key={spell.spell.name + `${index}`} variants={liVariants}>
+                                                <motion.li
+                                                    key={spell.spell.name + `${index}`}
+                                                    variants={liVariants}
+                                                >
                                                     {spell.spell.name}
                                                 </motion.li>
                                             ))
@@ -166,9 +164,6 @@ export const ClassSpells = ({ currentClassType, currentClass, parentClass }) => 
                     </SpellListContainerStyled>
                 )}
             </AnimatePresence>
-
-
-
         </div>
     )
 }
