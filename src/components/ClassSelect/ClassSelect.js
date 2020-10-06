@@ -4,18 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { ClassInformation } from '../ClassInformation';
 import { ClassSpells } from '../ClassSpells';
 
+import { Select } from './Select'
+
 import {
     fetchClassesAndSubclasses,
     fetchSubClassDescription,
     fetchSubClassFlavour,
     clearClassSpells,
     clearSubClassSpells,
-    clearSubClassFlavour,
-    clearDescription
+    clearSubClassFlavour
 } from '../../actions';
 
 
-import { ClassListWrapperStyled, ClassSelectContainer, ClassInputWrapperStyled } from './styled';
+import { ClassListWrapperStyled, ClassSelectContainer } from './styled';
 import { AnimatePresence, motion } from "framer-motion"
 
 export const ClassSelect = () => {
@@ -38,6 +39,7 @@ export const ClassSelect = () => {
 
 
     const handleClassChange = (e, classType) => {
+
         let classValue = e.target.value;
 
         setCurrentClass(classValue);
@@ -74,23 +76,20 @@ export const ClassSelect = () => {
     return (
         <ClassListWrapperStyled>
             <ClassSelectContainer>
-                <ClassInputWrapperStyled>
-                    <label htmlFor="class">Select a Class</label>
-                    <select name="class" id="class" onChange={(e) => handleClassChange(e, 'class')}>
-                        {classes.map(singleClass => (
-                            <option value={singleClass.index}>{singleClass.name}</option>
-                        ))}
-                    </select>
-                </ClassInputWrapperStyled>
-                <ClassInputWrapperStyled>
-                    <label htmlFor="class">Select a Subclass</label>
-                    <select name="class" id="class" onChange={(e) => handleClassChange(e, 'subclass')}>
-                        {subclasses.map(singleClass => (
-                            <option value={singleClass.index}>{singleClass.name}</option>
-                        ))}
-                    </select>
 
-                </ClassInputWrapperStyled>
+                <Select
+                    classlist={classes}
+                    classType='class'
+                    label="Select a Class"
+                    onChange={handleClassChange}
+                />
+
+                <Select
+                    classlist={subclasses}
+                    classType='subclass'
+                    label="Select a Subclass"
+                    onChange={handleClassChange}
+                />
 
             </ClassSelectContainer>
 

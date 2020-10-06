@@ -5,17 +5,6 @@ import { AppStyled, AppWrapperStyled, AppTitleStyled } from '../styles';
 
 const App = () => {
 
-    const variants = {
-        show: {
-            opacity: 1,
-            y: 0
-        },
-        hide: {
-            opacity: 0,
-            y: -10
-        }
-    }
-
     return (
         <AppStyled>
             <AppWrapperStyled>

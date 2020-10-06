@@ -56,7 +56,7 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
                                     {
                                         typeof (classSpells) !== 'string' ? (
                                             classSpells.map(spell => (
-                                                <li>{spell.name}</li>
+                                                <li key={spell.name} >{spell.name}</li>
                                             ))
                                         ) : (
                                                 <li>{classSpells}</li>
@@ -72,7 +72,7 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
                                     {
                                         typeof (subclassSpells) !== 'string' ? (
                                             subclassSpells.map(spell => (
-                                                <li>{spell.spell.name}</li>
+                                                <li key={spell.spell.name}>{spell.spell.name}</li>
                                             ))
                                         ) : (
                                                 <li>{subclassSpells}</li>
