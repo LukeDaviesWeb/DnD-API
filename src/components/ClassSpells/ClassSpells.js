@@ -85,6 +85,7 @@ export const ClassSpells = ({ currentClassType, currentClass, parentClass }) => 
                 <ButtonStyled
                     onClick={handleFetchSpells}
                     data-view={classSpells.length ? '' : 'half-width'}
+                    disabled={classSpells.length}
                 >
                     {loadingSpells ? 'Getting Spells' : 'Get Spells'}
                 </ButtonStyled>
