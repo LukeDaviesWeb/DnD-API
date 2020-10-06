@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+
 
 export const ClassListWrapperStyled = styled.div`
     display: flex;
@@ -6,10 +8,20 @@ export const ClassListWrapperStyled = styled.div`
 
 `
 
-export const ClassSelectContainer = styled.div`
+export const ClassSelectContainer = styled(motion.div)`
     display: flex;
+    flex-direction:column;
     justify-content: space-between;
     margin-bottom: 25px;
+
+    select{
+        margin-bottom: 10px;
+    }
+
+    @media only screen and (min-width: 500px) {
+        flex-direction: row;
+        margin-bottom: 0;
+    }
 `
 
 export const ClassInputWrapperStyled = styled.div`

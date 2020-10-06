@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -6,15 +6,22 @@ import {
     fetchClassSpells,
 } from '../../actions';
 
-import { ButtonStyled, SpellListStyled, SpellListContainerStyled } from './styled'
+import {
+    ButtonStyled,
+    SpellListStyled,
+    SpellListContainerStyled,
+    SpellCTAStyled
+} from './styled'
+
 import { AnimatePresence, motion } from "framer-motion"
 
 
-export const ClassSpells = ({ currentClassType, currentClass }) => {
+export const ClassSpells = ({ currentClassType, currentClass, parentClass }) => {
+    const [alphabetically, setToAlphabetically] = useState(false);
+
     const classSpells = useSelector(state => state.classState.classSpells);
     const subclassSpells = useSelector(state => state.classState.subclassSpells);
     const loadingSpells = useSelector(state => state.classState.loadingSpells);
-    const parentClass = useSelector(state => state.classState.parentClass);
 
     const dispatch = useDispatch();
 
@@ -28,6 +35,14 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
                 break;
             default: console.log('none selected')
         }
+    }
+
+    const handleSort = () => {
+        if (!alphabetically) {
+            subclassSpells.sort((a, b) => a.spell.name > b.spell.name ? 1 : -1);
+            classSpells.sort((a, b) => a.name > b.name ? 1 : -1);
+        }
+        setToAlphabetically(true);
     }
 
     const variants = {
@@ -66,11 +81,32 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
 
 
 
+
+
+
     return (
         <div>
-            <div>
-                <ButtonStyled onClick={handleFetchSpells}>Get Spells</ButtonStyled>
-            </div>
+            <SpellCTAStyled>
+                <ButtonStyled
+                    onClick={handleFetchSpells}
+                    data-view={classSpells.length ? '' : 'half-width'}
+                >
+                    {loadingSpells ? 'Getting Spells' : 'Get Spells'}
+                </ButtonStyled>
+
+                {typeof (classSpells) !== 'string'
+                    && typeof (subclassSpells) !== 'string'
+                    && classSpells.length
+                    ? (
+                        <ButtonStyled
+                            onClick={handleSort}
+                            disabled={alphabetically}
+                        >
+                            {alphabetically ? 'Sorted' : 'Sort Alphabetically'}
+                        </ButtonStyled>
+                    ) : ''
+                }
+            </SpellCTAStyled>
             <AnimatePresence>
                 {loadingSpells ? <p>Loading...</p> : (
                     <SpellListContainerStyled
@@ -82,29 +118,41 @@ export const ClassSpells = ({ currentClassType, currentClass }) => {
 
                         {classSpells.length ? (
                             <SpellListStyled>
-                                <h4>{currentClassType === 'class' ? `${currentClass} Spells` : `${parentClass} Spells (parent class)`} </h4>
+                                <h4>
+                                    {currentClassType === 'class'
+                                        ? `${currentClass} Spells`
+                                        : `${parentClass} Spells (parent class)`}
+                                </h4>
+
                                 <motion.ul variants={ulVariants} initial="hide" animate={"show"}>
                                     {
-                                        typeof (classSpells) !== 'string' ? (
-
-                                            classSpells.map(spell => (
-                                                <motion.li key={spell.name} variants={liVariants}>{spell.name}</motion.li>
-                                            ))
-                                        ) : (
+                                        typeof (classSpells) !== 'string' ?
+                                            classSpells
+                                                .map((spell, index) => (
+                                                    <motion.li
+                                                        key={spell.name + `${index}`}
+                                                        variants={liVariants}
+                                                    >
+                                                        {spell.name}
+                                                    </motion.li>
+                                                ))
+                                            : (
                                                 <motion.li>{classSpells}</motion.li>
                                             )
                                     }
                                 </motion.ul>
                             </SpellListStyled>
                         ) : ''}
+
                         {currentClassType === 'subclass' && subclassSpells.length ? (
                             <SpellListStyled>
                                 <h4>{currentClass} Spells</h4>
+
                                 <motion.ul variants={ulVariants} initial="hide" animate={"show"}>
                                     {
                                         typeof (subclassSpells) !== 'string' ? (
-                                            subclassSpells.map(spell => (
-                                                <motion.li key={spell.spell.name} variants={liVariants}>
+                                            subclassSpells.map((spell, index) => (
+                                                <motion.li key={spell.spell.name + `${index}`} variants={liVariants}>
                                                     {spell.spell.name}
                                                 </motion.li>
                                             ))

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from "react-redux";
 import { ClassInformationStyled, InformationTitleStyled } from "./styled"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 
 export const ClassInformation = ({ currentClassType, currentClass }) => {
 

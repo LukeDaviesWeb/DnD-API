@@ -25,10 +25,11 @@ export const ClassSelect = () => {
 
     const dispatch = useDispatch();
 
-    const { error, classes, subclasses, loading } = useSelector(state => ({
+    const { error, classes, subclasses, parentClass, loading } = useSelector(state => ({
         error: state.classState.error,
         classes: state.classState.classes,
         subclasses: state.classState.subclasses,
+        parentClass: state.classState.parentClass,
         loading: state.classState.loading,
     }));
 
@@ -75,23 +76,30 @@ export const ClassSelect = () => {
 
     return (
         <ClassListWrapperStyled>
-            <ClassSelectContainer>
+            <AnimatePresence>
+                {loading ? (<div>Loading...</div>) : (
+                    <ClassSelectContainer
+                        variants={variants}
+                        initial="hide"
+                        animate="show"
+                    >
+                        <Select
+                            classlist={classes}
+                            parentClass={parentClass}
+                            classType='class'
+                            label="Select a Class"
+                            onChange={handleClassChange}
+                        />
 
-                <Select
-                    classlist={classes}
-                    classType='class'
-                    label="Select a Class"
-                    onChange={handleClassChange}
-                />
-
-                <Select
-                    classlist={subclasses}
-                    classType='subclass'
-                    label="Select a Subclass"
-                    onChange={handleClassChange}
-                />
-
-            </ClassSelectContainer>
+                        <Select
+                            classlist={subclasses}
+                            classType='subclass'
+                            label="Select a Subclass"
+                            onChange={handleClassChange}
+                        />
+                    </ClassSelectContainer>
+                )}
+            </AnimatePresence>
 
             <AnimatePresence>
                 {currentClass ? (
@@ -100,6 +108,7 @@ export const ClassSelect = () => {
                         <ClassSpells
                             currentClassType={currentClassType}
                             currentClass={currentClass}
+                            parentClass={parentClass}
                         />
                     </motion.div>
                 ) : ('')}

@@ -20,6 +20,16 @@ export const ButtonStyled = styled.button`
     &:focus{
         outline: none;
     }
+    &:disabled{
+        border: 2px solid rgba(0,0,0,0.3);
+       
+        &:hover{
+            cursor: not-allowed;
+            transform: translate3d(0, 0, 0);
+            box-shadow: 0px 0px 0px black;
+            border: 2px solid rgba(0,0,0,0.3);
+        }
+    }
 `
 
 export const SpellListContainerStyled = styled(motion.div)`
@@ -78,4 +88,31 @@ export const SpellListStyled = styled.div`
     }
     
 `
+export const SpellCTAStyled = styled.div`
+    display: flex;
+    flex-direction: column;
+        button{
+            flex: 1 0 0;
 
+            &:last-child{
+                @media screen and (min-width: 500px) {
+                    margin-left: 25px;
+                }
+            }
+
+            &[data-view="half-width"]{
+                max-width: calc(50% - 12.5px);
+                margin-left: 0;
+            }
+
+            &:first-child{
+                @media screen and (min-width: 500px) {
+                    margin-left: 0px;
+                }
+            }
+        }
+
+    @media screen and (min-width: 500px) {
+        flex-direction: row;
+    }
+`
