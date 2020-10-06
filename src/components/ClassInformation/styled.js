@@ -6,6 +6,7 @@ export const ClassInformationStyled = styled.div`
 
 export const InformationTitleStyled = styled.div`
     margin-bottom: 10px;
+    margin-top: 15px;
     h2{
         font-weight: normal;
     }
